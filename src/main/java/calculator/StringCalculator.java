@@ -1,9 +1,11 @@
+package calculator;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class Calculator1 {
+public class StringCalculator {
 
     public static void main(String[] args) {
         //String stringNumber = "//;\n1;2;3";
@@ -18,8 +20,7 @@ public class Calculator1 {
             return 0;
         }
         int[] numbers = switchToNumbers(stringNumber);
-        int sum = IntStream.of(numbers).sum();
-        return sum;
+        return IntStream.of(numbers).sum();
     }
 
     public static int[] switchToNumbers(String stringNumber){
