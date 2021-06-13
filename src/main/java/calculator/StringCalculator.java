@@ -2,11 +2,12 @@ package calculator;
 
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.stream.IntStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringCalculator {
     public static void main(String[] args) {
-        System.out.println("입력해주세요.");
+        System.out.println("덧셈을 수행할 문자열을 입력해주세요.");
 
         Scanner scanner = new Scanner(System.in);
         String text = scanner.nextLine();
@@ -16,12 +17,18 @@ public class StringCalculator {
     }
 
     public static int splitAndSum(String text) throws RuntimeException{
-        // 유효성검사
         if(text == null | "".equals(text)) {
             return 0;
         }
+        Matcher m = Pattern.compile("//(.)\n(.*)").matcher(text);
+        if(m.find()) {
+            return seperateAndCalculate(m.group(2), m.group(1));
+        }
+        return seperateAndCalculate(text, ",|:");
+    }
 
-        String[] numbers = text.split(",|:");
+    public static int seperateAndCalculate(String text, String delimeter) throws RuntimeException{
+        String[] numbers = text.split(delimeter);
         int[] intArr = new int[numbers.length];
 
         for(int i=0; i<numbers.length; i++) {
@@ -30,8 +37,6 @@ public class StringCalculator {
                 throw new RuntimeException();
             }
         }
-
-        IntStream str = Arrays.stream(intArr);
-        return str.sum();
+        return Arrays.stream(intArr).sum();
     }
 }
