@@ -30,9 +30,9 @@ public class StringCalculator {
             stringNumber = m.group(2);
         }
 
-        int[] numbers = Stream.of(stringNumber.split(customDelimiter)).mapToInt(Integer::parseInt).toArray();
-
-        return numbers;
+        return Stream.of(stringNumber.split(customDelimiter))
+                .mapToInt(Integer::parseInt)
+                .toArray();
     }
 
     public static void checkValication(int[] numbers) {
