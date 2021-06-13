@@ -5,10 +5,9 @@ import java.util.stream.Stream;
 
 public class Calculator1 {
 
-
     public static void main(String[] args) {
         //String stringNumber = "//;\n1;2;3";
-        String stringNumber = "1111";
+        String stringNumber = "1111,2";
         //String stringNumber = "//;\n1;2;3";
         int sum = splitAndSum(stringNumber);
         System.out.println(sum);
@@ -36,10 +35,8 @@ public class Calculator1 {
     }
 
     public static void checkValication(int[] numbers) {
-        for (int i = 0; i< numbers.length; i++){
-            if(numbers[i]<0) {
-                throw new RuntimeException();
-            }
-        }
+        long countNegative = IntStream.of(numbers).filter(x -> x<0 ).count();
+        if(countNegative>0) throw new RuntimeException();
+
     }
 }
