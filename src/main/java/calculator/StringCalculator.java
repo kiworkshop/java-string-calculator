@@ -7,12 +7,6 @@ import java.util.stream.Stream;
 
 public class StringCalculator {
 
-    public static void main(String[] args) {
-        String stringNumber = "1111,2";
-        int sum = splitAndSum(stringNumber);
-        System.out.println(sum);
-    }
-
     public static int splitAndSum(String stringNumber) {
         if(stringNumber == null || stringNumber.isEmpty())  return 0;
         int[] numbers = switchToNumbers(stringNumber);
