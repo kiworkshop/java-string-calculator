@@ -1,17 +1,27 @@
 package calculator;
 
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.*;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public class MatcherStudyTest {
-    public static void main(String[] args) {
-        String input = "//;\n1;2;3";
-        System.out.println("input: " + input);
-        Matcher m = Pattern.compile("//(.)\n(.*)").matcher(input);
+    String input = "//;\n1;2;3";
+    Matcher m = Pattern.compile("//(.)\n(.*)").matcher(input);
+    String str1 = "";
+    String str2 = "";
+
+    @Test
+    public void checkSeperatedStrings() {
         if(m.find()) {
-            // 분리된 문자열 확인
-            System.out.println("m.group(1): " + m.group(1));
-            System.out.println("m.group(2): " + m.group(2));
+            str1 = m.group(1);
+            str2 = m.group(2);
         }
+
+        assertThat(";").isEqualTo(str1);
+        assertThat("1;2;3").isEqualTo(str2);
+
     }
 }
