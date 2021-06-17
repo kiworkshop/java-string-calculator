@@ -13,8 +13,10 @@ public class StringCalculator {
         String text = scanner.nextLine();
 
         System.out.println(splitAndSum(text));
-
     }
+
+    public static final String delimeter1 = ",";
+    public static final String delimeter2 = ":";
 
     public static int splitAndSum(String text) throws RuntimeException{
         if(text == null | "".equals(text)) {
@@ -22,9 +24,12 @@ public class StringCalculator {
         }
         Matcher m = Pattern.compile("//(.)\n(.*)").matcher(text);
         if(m.find()) {
-            return seperateAndCalculate(m.group(2), m.group(1));
+            String customDelimeter = m.group(1);
+            String content = m.group(2);
+
+            return seperateAndCalculate(content, customDelimeter);
         }
-        return seperateAndCalculate(text, ",|:");
+        return seperateAndCalculate(text, delimeter1 + "|" + delimeter2);
     }
 
     public static int seperateAndCalculate(String text, String delimeter) throws RuntimeException{
@@ -33,10 +38,16 @@ public class StringCalculator {
 
         for(int i=0; i<numbers.length; i++) {
             intArr[i] = Integer.parseInt(numbers[i]);
-            if(intArr[i] < 0) {
-                throw new RuntimeException();
-            }
         }
+
+        Arrays.stream(intArr).forEach(StringCalculator::negativeCheck);
+
         return Arrays.stream(intArr).sum();
+    }
+
+    public static void negativeCheck(int input) throws RuntimeException{
+        if(input < 0) {
+            throw new RuntimeException();
+        }
     }
 }
