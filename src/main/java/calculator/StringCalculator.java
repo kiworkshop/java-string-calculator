@@ -15,8 +15,7 @@ public class StringCalculator {
         System.out.println(splitAndSum(text));
     }
 
-    public static final String delimeter1 = ",";
-    public static final String delimeter2 = ":";
+    protected static final String[] delimiter = {",", ":"};
 
     public static int splitAndSum(String text) throws RuntimeException{
         if(text == null | "".equals(text)) {
@@ -24,12 +23,11 @@ public class StringCalculator {
         }
         Matcher m = Pattern.compile("//(.)\n(.*)").matcher(text);
         if(m.find()) {
-            String customDelimeter = m.group(1);
+            String customDelimiter = m.group(1);
             String content = m.group(2);
-
-            return seperateAndCalculate(content, customDelimeter);
+            return seperateAndCalculate(content, customDelimiter);
         }
-        return seperateAndCalculate(text, delimeter1 + "|" + delimeter2);
+        return seperateAndCalculate(text, delimiter[0] + "|" + delimiter[1]);
     }
 
     public static int seperateAndCalculate(String text, String delimeter) throws RuntimeException{
