@@ -31,13 +31,11 @@ public class StringCalculator {
     }
 
     public static int separateAndCalculate(String text, String delimiter) throws RuntimeException {
-        String[] numbers = text.split(delimiter);
-        int[] intArr = new int[numbers.length];
+        String[] splitTexts = text.split(delimiter);
         int sum = 0;
 
-        for (int i = 0; i < numbers.length; i++) {
-            intArr[i] = numericCheckAndParse(numbers[i]);
-            sum += intArr[i];
+        for (int i = 0; i < splitTexts.length; i++) {
+            sum += numericCheckAndParse(splitTexts[i]);
         }
 
         return sum;
