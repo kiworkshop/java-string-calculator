@@ -30,7 +30,7 @@ public class StringCalculator {
         return separateAndCalculate(text, DEFAULT_DELIMITERS);
     }
 
-    public static int separateAndCalculate(String text, String delimiter) throws RuntimeException {
+    private static int separateAndCalculate(String text, String delimiter) throws RuntimeException {
         String[] splitTexts = text.split(delimiter);
         int sum = 0;
 
@@ -41,11 +41,11 @@ public class StringCalculator {
         return sum;
     }
 
-    public static boolean isNumeric(String str) {
+    private static boolean isNumeric(String str) {
         return Pattern.matches("^[0-9]*$", str);
     }
 
-    public static int numericCheckAndParse(String str) throws RuntimeException {
+    private static int numericCheckAndParse(String str) throws RuntimeException {
         if (!isNumeric(str)) {
             throw new RuntimeException("0이상의 숫자만 입력해주세요.");
         }
