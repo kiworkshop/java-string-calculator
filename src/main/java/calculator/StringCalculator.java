@@ -36,16 +36,11 @@ public class StringCalculator {
         int[] intArr = new int[numbers.length];
         int sum = 0;
 
-        try {
-            for (int i = 0; i < numbers.length; i++) {
-                intArr[i] = Integer.parseInt(numbers[i]);
-            }
-        } catch (NumberFormatException ne) {
-            System.out.println("숫자만 입력해주세요.");
-            return 0;
+        for (int i = 0; i < numbers.length; i++) {
+            intArr[i] = Integer.parseInt(numbers[i]);
         }
 
-        for(int element : intArr) {
+        for (int element : intArr) {
             negativeCheck(element);
             sum += element;
         }
@@ -58,4 +53,5 @@ public class StringCalculator {
             throw new RuntimeException("음수는 처리할 수 없습니다. 0 이상의 수를 입력해주세요.");
         }
     }
+
 }
