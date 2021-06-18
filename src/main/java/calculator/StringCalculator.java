@@ -34,19 +34,19 @@ public class StringCalculator {
         String[] splitTexts = text.split(delimiter);
         int sum = 0;
 
-        for (int i = 0; i < splitTexts.length; i++) {
-            sum += numericCheckAndParse(splitTexts[i]);
+        for (String element : splitTexts) {
+            sum += numericCheckAndParse(element);
         }
 
         return sum;
     }
 
     public static boolean isNumeric(String str) {
-         return Pattern.matches("^[0-9]*$", str);
+        return Pattern.matches("^[0-9]*$", str);
     }
 
-    public static int numericCheckAndParse (String str) throws RuntimeException{
-        if(!isNumeric(str)) {
+    public static int numericCheckAndParse(String str) throws RuntimeException {
+        if (!isNumeric(str)) {
             throw new RuntimeException("0이상의 숫자만 입력해주세요.");
         }
         return Integer.parseInt(str);
