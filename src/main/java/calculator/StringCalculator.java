@@ -1,6 +1,5 @@
 package calculator;
 
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,27 +30,28 @@ public class StringCalculator {
         return separateAndCalculate(text, DEFAULT_DELIMITERS);
     }
 
-    public static int separateAndCalculate(String text, String delimeter) throws RuntimeException {
-        String[] numbers = text.split(delimeter);
+    public static int separateAndCalculate(String text, String delimiter) throws RuntimeException {
+        String[] numbers = text.split(delimiter);
         int[] intArr = new int[numbers.length];
         int sum = 0;
 
         for (int i = 0; i < numbers.length; i++) {
-            intArr[i] = Integer.parseInt(numbers[i]);
-        }
-
-        for (int element : intArr) {
-            negativeCheck(element);
-            sum += element;
+            intArr[i] = numericCheckAndParse(numbers[i]);
+            sum += intArr[i];
         }
 
         return sum;
     }
 
-    public static void negativeCheck(int input) throws RuntimeException {
-        if (input < 0) {
-            throw new RuntimeException("음수는 처리할 수 없습니다. 0 이상의 수를 입력해주세요.");
+    public static boolean isNumeric(String str) {
+         return Pattern.matches("^[0-9]*$", str);
+    }
+
+    public static int numericCheckAndParse (String str) throws RuntimeException{
+        if(!isNumeric(str)) {
+            throw new RuntimeException("0이상의 숫자만 입력해주세요.");
         }
+        return Integer.parseInt(str);
     }
 
 }
