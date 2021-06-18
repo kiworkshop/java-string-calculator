@@ -15,37 +15,47 @@ public class StringCalculator {
         System.out.println(splitAndSum(text));
     }
 
-    protected static final String[] delimiter = {",", ":"};
+    private static final String DEFAULT_DELIMITERS = ",|:";
+    private static final String DESIGNATED_PATTERN = "//(.)\n(.*)";
 
-    public static int splitAndSum(String text) throws RuntimeException{
-        if(text == null | "".equals(text)) {
+    public static int splitAndSum(String text) throws RuntimeException {
+        if (text == null || text.isEmpty()) {
             return 0;
         }
-        Matcher m = Pattern.compile("//(.)\n(.*)").matcher(text);
-        if(m.find()) {
+        Matcher m = Pattern.compile(DESIGNATED_PATTERN).matcher(text);
+        if (m.find()) {
             String customDelimiter = m.group(1);
             String content = m.group(2);
-            return seperateAndCalculate(content, customDelimiter);
+            return separateAndCalculate(content, customDelimiter);
         }
-        return seperateAndCalculate(text, delimiter[0] + "|" + delimiter[1]);
+        return separateAndCalculate(text, DEFAULT_DELIMITERS);
     }
 
-    public static int seperateAndCalculate(String text, String delimeter) throws RuntimeException{
+    public static int separateAndCalculate(String text, String delimeter) throws RuntimeException {
         String[] numbers = text.split(delimeter);
         int[] intArr = new int[numbers.length];
+        int sum = 0;
 
-        for(int i=0; i<numbers.length; i++) {
-            intArr[i] = Integer.parseInt(numbers[i]);
+        try {
+            for (int i = 0; i < numbers.length; i++) {
+                intArr[i] = Integer.parseInt(numbers[i]);
+            }
+        } catch (NumberFormatException ne) {
+            System.out.println("숫자만 입력해주세요.");
+            return 0;
         }
 
-        Arrays.stream(intArr).forEach(StringCalculator::negativeCheck);
+        for(int element : intArr) {
+            negativeCheck(element);
+            sum += element;
+        }
 
-        return Arrays.stream(intArr).sum();
+        return sum;
     }
 
-    public static void negativeCheck(int input) throws RuntimeException{
-        if(input < 0) {
-            throw new RuntimeException();
+    public static void negativeCheck(int input) throws RuntimeException {
+        if (input < 0) {
+            throw new RuntimeException("음수는 처리할 수 없습니다. 0 이상의 수를 입력해주세요.");
         }
     }
 }
