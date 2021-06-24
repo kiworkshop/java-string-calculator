@@ -5,7 +5,6 @@ import java.util.stream.Stream;
 
 public class StringCalculator {
 
-    private static final String DEFAULT_NUMBERS = "^[0-9]*$";
     private static final String DEFAULT_DELIMITERS = "[,:]";
     public static final String CUSTOM_DELIMITER = "//(.)\n(.*)";
 
@@ -43,7 +42,7 @@ public class StringCalculator {
                 .anyMatch(number -> number < 0);
 
         if (isNegativeNumber) {
-            throw new RuntimeException();
+            throw new RuntimeException("양의 정수값이 입력되어야 합니다.");
         }
     }
 }
